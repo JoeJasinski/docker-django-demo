@@ -39,7 +39,7 @@ Features:
     Override the default docker compose variables
 
         # vim docker-compose.override.yml
-        version: '2'
+        version: '3'
         services:
             web:
               ports:
