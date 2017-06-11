@@ -5,4 +5,3 @@ django-htmlmin==0.10.0
 psycopg2==2.7.1
 dj-database-url==0.4.2
 six>=1.10.0
-html5lib==0.9999999 # fix needed for cmsplugin ckeditor before upgrade
