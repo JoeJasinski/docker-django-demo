@@ -1,0 +1,55 @@
+version: '3'
+services:
+
+   db:
+     image: postgres:9.6
+     container_name: dddemo-postgres
+     ports:
+       - "5432"
+     networks:
+       - jaz
+
+   app:
+     build:
+       context: .
+       dockerfile: Dockerfile
+     container_name: dddemo-app
+     command: /site/docker-utils/app-start.sh
+     volumes:
+       - .:/site/proj/
+       - static-volume:/site/htdocs/static/
+     ports:
+       - "8000"
+     environment:
+       - DATABASE_URL=postgres://postgres@db/postgres
+       - SITE_DIR=/site/
+       - PROJECT_NAME=dddemo
+       - DJANGO_DEBUG=True
+     networks:
+       - jaz
+
+   web:
+     image: nginx:1.11
+     container_name: dddemo-web
+     ports:
+       - "80:80"
+       - "443:443"
+     depends_on:
+       - app
+     volumes:
+       - ./docker-utils/nginx/default.template.conf:/root/default.template.conf
+       - ./docker-utils/ssl/:/site/ssl/
+       - static-volume:/static
+     command: /bin/bash -c "envsubst '$$NGINX_HTTP_PORT $$NGINX_HTTPS_PORT' < /root/default.template.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+     environment:
+       - NGINX_HOST=foobar.com
+       - NGINX_HTTP_PORT=80
+       - NGINX_HTTPS_PORT=443
+     networks:
+       - jaz
+
+networks:
+  jaz:
+
+volumes:
+  static-volume:
