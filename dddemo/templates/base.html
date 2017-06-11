@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>{% load cms_tags sekizai_tags staticfiles %}
+<html lang="en">
+ <head>
+ <link rel="SHORTCUT ICON" href="{% static 'images/favicon.ico' %}">
+  <title>Django Docker Demo</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="keywords" content="Joe Jasinski, Django Docker Demo" />
+  <meta name="description" content="A demo application showing how Django can be used with Docker." />
+  <meta name="author" content="Joe J. Jasinski" />
+
+  <meta name="HandheldFriendly" content="true">
+  <meta name="viewport" content="width=device-width; initial-scale=0.666667; maximum-scale=0.666667; user-scalable=0">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="stylesheet" href="{% static 'css/master.css' %}" type="text/css" />
+ </head>
+ <body>
+
+   <div>
+       {% block content %}
+       {% endblock content %}
+   </div>
+
+ </body>
+
+ <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+ {% block js_footer %}{% endblock %}
+</html>

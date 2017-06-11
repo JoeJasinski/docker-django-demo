@@ -1,3 +1,9 @@
+This is a complete working demo of docker compose working with a django project.
+
+Features:
+ - split into nginx/postgres/app containers
+ - configuration is set by environment variables
+ - changes to the django app will auto-reload the uwsgi process
 
 # DOCKER COMPOSE
 
@@ -17,6 +23,9 @@
 
         # enter db
         docker-compose run app manage dbshell
+
+        # run any management command
+        docker-compose run app manage <command and options>
 
         # enter bash shell
         docker-compose run app /bin/bash

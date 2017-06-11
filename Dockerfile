@@ -25,7 +25,7 @@ RUN virtualenv env/
 COPY docker-utils/ssl/ ssl/
 
 # pre-install requirements; doing this sooner prevents unnecessary layer-building
-COPY requirements/base.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN env/bin/pip install -r requirements.txt
 
 # Make sure that we install uwsgi, regardless of project requirements
