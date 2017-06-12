@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     python-dev \
     python-virtualenv \
     zlib1g-dev \
+    ruby-sass \
     && rm -rf /var/lib/apt/lists/*
 
 # set the environment variable default; can be overridden by compose

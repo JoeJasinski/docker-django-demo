@@ -115,6 +115,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -157,6 +158,12 @@ MIDDLEWARE_CLASSES = (
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+COMPRESS_ENABLED = True
+COMPRESS_PRECOMPILERS = (
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+)
+
 ROOT_URLCONF = 'dddemo.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -177,6 +184,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'django_extensions',
+    'compressor',
 
 )
 

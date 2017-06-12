@@ -30,6 +30,6 @@ RCSLOG
 SCCS
 _$*
 node_modules/
-local_settings.py
+.sass-cache
 */settings/local.py
 docker-compose.override.yml

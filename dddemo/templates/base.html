@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>{% load staticfiles %}
+<!DOCTYPE HTML>{% load staticfiles compress %}
 <html lang="en">
  <head>
  <link rel="SHORTCUT ICON" href="{% static 'images/favicon.ico' %}">
@@ -12,15 +12,19 @@
   <meta name="viewport" content="width=device-width; initial-scale=0.666667; maximum-scale=0.666667; user-scalable=0">
   <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="{% static 'css/master.css' %}" type="text/css" />
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'scss/master.scss' %}" type="text/x-scss" />
+  {% endcompress %}
  </head>
  <body>
 
-   <div>
+   <div id="content">
        {% block content %}
        {% endblock content %}
    </div>
-
+   <footer>
+      Example by Joe Jasinski
+  </footer>
  </body>
 
  <script src="{% static 'js/app.js' %}"></script>
