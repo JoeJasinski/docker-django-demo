@@ -196,9 +196,3 @@ CELERY_BROKER_URL = env("CELERY_BROKER_URL",
                         "amqp://guest:guest@localhost:5672//")
 
 CONTACT_EMAIL = "joe.jasinski@gmail.com"
-
-
-MIGRATION_MODULES = {
-}
-
-THUMBNAIL_HIGH_RESOLUTION = True

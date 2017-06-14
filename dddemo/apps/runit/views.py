@@ -1,6 +1,8 @@
 from django import forms
 from django.views.generic import FormView
 from django.core.urlresolvers import reverse_lazy
+from django.contrib import messages
+from django_celery_results.models import TaskResult
 from dddemo.celery import app
 
 
@@ -15,7 +17,13 @@ class RunItView(FormView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        app.send_task('dddemo.add', args=(
+        r = app.send_task('dddemo.add', args=(
             form.cleaned_data.get('arg1'),
             form.cleaned_data.get('arg2')))
+
+        messages.info(
+            self.request,
+            "Job submitted with id <a href='{}' target='_blank'>{}</a>".format(
+                reverse_lazy("admin:django_celery_results_taskresult_changelist"), # NOQA
+                r.id))
         return super(RunItView, self).form_valid(form)

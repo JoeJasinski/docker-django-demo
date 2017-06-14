@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libpq-dev \
     postgresql-client \
-    python-dev \
-    python-virtualenv \
+    python3-dev \
+    python3-venv \
     zlib1g-dev \
     ruby-sass \
     && rm -rf /var/lib/apt/lists/*
@@ -22,11 +22,12 @@ WORKDIR $SITE_DIR
 RUN mkdir -p proj/ var/log/ htdocs/
 
 # create a virtualenv to separate app packages from system packages
-RUN virtualenv env/
+RUN python3 -mvenv env/
 COPY docker-utils/ssl/ ssl/
 
 # pre-install requirements; doing this sooner prevents unnecessary layer-building
 COPY requirements.txt requirements.txt
+RUN env/bin/pip install pip --upgrade
 RUN env/bin/pip install -r requirements.txt
 
 # Make sure that we install uwsgi, regardless of project requirements
