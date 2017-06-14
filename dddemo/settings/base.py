@@ -2,7 +2,6 @@
 import os
 import sys
 import dj_database_url
-gettext = lambda s: s
 
 
 def env(key, default=None):
@@ -43,7 +42,9 @@ MANAGERS = ADMINS
 
 
 # FORMAT:    postgres://USER:PASSWORD@HOST:PORT/NAME
-DATABASES = {'default': dj_database_url.parse(env("DJANGO_DATABASE_URL", "postgres://user:pass@localhost:/database"))}
+DATABASES = {'default': dj_database_url.parse(
+    env("DJANGO_DATABASE_URL",
+        "postgres://user:pass@localhost:/database"))}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -114,7 +115,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+
     'compressor.finders.CompressorFinder',
 )
 

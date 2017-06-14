@@ -2,7 +2,6 @@ from django import forms
 from django.views.generic import FormView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
-from django_celery_results.models import TaskResult
 from dddemo.celery import app
 
 
