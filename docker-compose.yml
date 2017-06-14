@@ -4,8 +4,19 @@ services:
    db:
      image: postgres:9.6
      container_name: dddemo-postgres
-     ports:
+     expose:
        - "5432"
+     networks:
+       - jaz
+
+   rabbitmq:
+     image: rabbitmq:3
+     container_name: dddemo-rabbitmq
+     expose:
+       - "5672"
+     environment:
+       - RABBITMQ_DEFAULT_USER=guest
+       - RABBITMQ_DEFAULT_PASS=guest
      networks:
        - jaz
 
@@ -18,13 +29,36 @@ services:
      volumes:
        - .:/site/proj/
        - static-volume:/site/htdocs/static/
-     ports:
+     expose:
        - "8000"
      environment:
        - DATABASE_URL=postgres://postgres@db/postgres
+       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
        - SITE_DIR=/site/
        - PROJECT_NAME=dddemo
        - DJANGO_DEBUG=True
+     depends_on:
+       - rabbitmq
+     networks:
+       - jaz
+
+   worker:
+     build:
+       context: .
+       dockerfile: Dockerfile
+     container_name: dddemo-worker
+     command: /site/env/bin/celery worker -A dddemo --workdir /site/proj/ -l info
+     volumes:
+       - .:/site/proj/
+       - static-volume:/site/htdocs/static/
+     environment:
+       - DATABASE_URL=postgres://postgres@db/postgres
+       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+       - SITE_DIR=/site/
+       - PROJECT_NAME=dddemo
+       - DJANGO_DEBUG=False
+     depends_on:
+       - rabbitmq
      networks:
        - jaz
 

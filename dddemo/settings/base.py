@@ -183,10 +183,17 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admin',
 
+    'dddemo.apps.runit',
+
     'django_extensions',
     'compressor',
+    'django_celery_results',
 
 )
+
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = env("CELERY_BROKER_URL",
+                        "amqp://guest:guest@localhost:5672//")
 
 CONTACT_EMAIL = "joe.jasinski@gmail.com"
 
