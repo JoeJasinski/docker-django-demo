@@ -44,7 +44,7 @@ MANAGERS = ADMINS
 # FORMAT:    postgres://USER:PASSWORD@HOST:PORT/NAME
 DATABASES = {'default': dj_database_url.parse(
     env("DJANGO_DATABASE_URL",
-        "postgres://user:pass@localhost:/database"))}
+        "postgres://user:password@localhost:/database"))}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
